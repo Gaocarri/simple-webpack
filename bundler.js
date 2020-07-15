@@ -50,11 +50,11 @@ function createAsset(filename) {
 //从入口开始分析所有依赖项，形成依赖图，采用广度遍历
 function createGraph(entry) {
   const mainAsset = createAsset(entry);
-    
+
   //既然要广度遍历肯定要有一个队列，第一个元素肯定是 从 "./example/entry.js" 返回的信息
   const queue = [mainAsset];
-  
-  
+
+
   for (const asset of queue) {
     const dirname = path.dirname(asset.filename);
 
@@ -64,7 +64,7 @@ function createGraph(entry) {
 
     asset.dependencies.forEach(relativePath => {
       const absolutePath = path.join(dirname, relativePath);
-        
+
       //获得子依赖（子模块）的依赖项、代码、模块id，文件名
       const child = createAsset(absolutePath);
 
